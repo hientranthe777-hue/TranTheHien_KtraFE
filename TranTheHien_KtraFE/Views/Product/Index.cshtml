@@ -1,0 +1,79 @@
+﻿@model TranTheHien_KtraFE.Models.Product
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Trang chi tiết sản phẩm</title>
+    <!-- Nhúng thư viện FontAwesome theo yêu cầu -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- Nhúng file CSS (Đường dẫn trỏ vào thư mục Content) -->
+    <link rel="stylesheet" href="~/Content/product-detail.css">
+</head>
+<body>
+    <div class="product-container">
+        <!-- CỘT 1: HÌNH ẢNH -->
+        <div class="col-left">
+            <img src="@Model.ImageUrl" alt="@Model.Name" style="width:100%; border-radius: 4px;">
+            <div style="display:flex; justify-content:space-between; margin-top:10px;">
+                <p><i class="fas fa-share-alt"></i> Chia sẻ</p>
+                <p><i class="far fa-heart"></i> Thích</p>
+            </div>
+        </div>
+
+        <!-- CỘT 2: THÔNG TIN SẢN PHẨM -->
+        <div class="col-center">
+            <div class="product-title">
+                <span style="background: #ff424e; color: white; padding: 2px 6px; font-size: 12px; border-radius: 3px;">CHÍNH HÃNG</span>
+                @Model.Name
+            </div>
+
+            <div class="rating" style="margin-bottom: 10px;">
+                <i class="fas fa-star" style="color: #fdd835;"></i>
+                <i class="fas fa-star" style="color: #fdd835;"></i>
+                <i class="fas fa-star" style="color: #fdd835;"></i>
+                <i class="fas fa-star" style="color: #fdd835;"></i>
+                <i class="fas fa-star" style="color: #fdd835;"></i>
+                <span style="color: #787878; margin-left: 10px;">(Đã bán 438)</span>
+            </div>
+
+            <!-- Lưu trữ giá trị thực (data-price) để JS lấy tính toán -->
+            <div class="product-price" id="main-price" data-price="@Model.Price">
+                @Model.Price.ToString("N0")<sup>₫</sup>
+            </div>
+
+            <hr style="border: 0.5px solid #f2f2f2; margin: 15px 0;">
+            <p><strong>Thông tin vận chuyển</strong></p>
+            <p>Giao đến: Q. 1, P. Bến Nghé, Hồ Chí Minh - <a href="#">Đổi địa chỉ</a></p>
+            <p><i class="fas fa-shipping-fast" style="color: green;"></i> <strong>Giao siêu tốc 2h</strong> - <span style="color: green;">Miễn phí</span></p>
+        </div>
+
+        <!-- CỘT 3: TÍNH TIỀN & MUA HÀNG -->
+        <div class="col-right">
+            <p style="font-weight: bold; margin-bottom: 5px;">Số lượng</p>
+            <div class="quantity-box">
+                <!-- Gọi hàm thay đổi số lượng từ JS -->
+                <button type="button" onclick="changeQuantity(-1)"><i class="fas fa-minus"></i></button>
+                <input type="text" id="txtQuantity" value="@Model.Quantity" readonly>
+                <button type="button" onclick="changeQuantity(1)"><i class="fas fa-plus"></i></button>
+            </div>
+
+            <div class="subtotal-area">
+                <span>Tạm tính</span>
+                <!-- Nơi JS sẽ update số tiền -->
+                <span class="subtotal-price" id="subtotal-display">@Model.Price.ToString("N0")<sup>₫</sup></span>
+            </div>
+
+            <button class="btn-buy" type="button">Mua ngay</button>
+            <button class="btn-buy" style="background: white; color: #0d5cb6; border: 1px solid #0d5cb6;" type="button">Thêm vào giỏ</button>
+        </div>
+    </div>
+
+    <!-- Nhúng file JS (Đường dẫn trỏ vào thư mục Scripts) -->
+    <script src="~/Scripts/product-detail.js"></script>
+</body>
+</html>
